@@ -6,4 +6,4 @@
 
 ## Notice
 
-If you deploy by this Heroku button, heroku install a paid Heroku postgres add-on.
+If you deploy it by this Heroku button, heroku install a paid Heroku postgres add-on.
