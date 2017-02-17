@@ -6,6 +6,25 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-ENV['QUANTITY'].to_i.times do |i|
-  Person.create(name: "name #{i}", birthdate: "1974-05-16", phone: "03-#{i}")
+# require 'activerecord-import'
+# require 'activerecord-import/base'
+# require 'activerecord-import/active_record/adapters/postgresql_adapter'
+
+q = ENV['QUANTITY'].to_i
+
+p t = q / 1000
+p e = q % 1000
+
+t.times do |i|
+  p = []
+  1000.times do |j|
+    p <<   Person.new(name: "name #{i * 1000 + j}", birthdate: "1974-05-16", phone: "03-#{i * 1000 + j}")
+  end
+  Person.import p
 end
+
+p = []
+e.times do |j|
+  p <<   Person.new(name: "name #{t*1000 + j}", birthdate: "1974-05-16", phone: "03-#{t*1000 + j}")
+end
+Person.import p
