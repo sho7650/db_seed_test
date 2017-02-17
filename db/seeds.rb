@@ -10,21 +10,22 @@
 # require 'activerecord-import/base'
 # require 'activerecord-import/active_record/adapters/postgresql_adapter'
 
-q = ENV['QUANTITY'].to_i
+cache_size = 100000
+quantity = ENV['QUANTITY'].to_i
 
-p t = q / 1000
-p e = q % 1000
+t = quantity / cache_size
+e = quantity % cache_size
 
 t.times do |i|
   p = []
-  1000.times do |j|
-    p <<   Person.new(name: "name #{i * 1000 + j}", birthdate: "1974-05-16", phone: "03-#{i * 1000 + j}")
+  cache_size.times do |j|
+    p <<   Person.new(name: "name #{i * cache_size + j}", birthdate: "1974-05-16", phone: "03-#{i * cache_size + j}")
   end
   Person.import p
 end
 
 p = []
 e.times do |j|
-  p <<   Person.new(name: "name #{t*1000 + j}", birthdate: "1974-05-16", phone: "03-#{t*1000 + j}")
+  p <<   Person.new(name: "name #{t*cache_size + j}", birthdate: "1974-05-16", phone: "03-#{t*cache_size + j}")
 end
 Person.import p
